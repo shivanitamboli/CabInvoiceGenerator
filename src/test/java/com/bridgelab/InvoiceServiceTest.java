@@ -4,12 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 public class InvoiceServiceTest {
+
 	@Test
 	public void givenDistanceAndTime_ShouldReturnTotalFare() {
 		InvoiceService invoiceService = new InvoiceService();
 		double distance = 2.0;
 		int time = 5;
-		double totalFare = invoiceService.CalculateFare(distance, time);
+		double totalFare = invoiceService.calculateFare(distance, time);
 		Assert.assertEquals(25, totalFare, 0);
 	}
 
@@ -18,7 +19,15 @@ public class InvoiceServiceTest {
 		InvoiceService invoiceService = new InvoiceService();
 		double distance = 0.1;
 		int time = 1;
-		double totalFare = invoiceService.CalculateFare(distance, time);
+		double totalFare = invoiceService.calculateFare(distance, time);
 		Assert.assertEquals(5.0, totalFare, 0);
+	}
+
+	@Test
+	public void givenMultipleRides_ShouldReturnTotalOfTotalFare() {
+		Ride[] rides = { new Ride(2.0, 5), new Ride(1.0, 10), new Ride(7.7, 3), new Ride(35, 20) };
+		InvoiceService invoiceService = new InvoiceService();
+		double totalFare = invoiceService.calculateFare(rides);
+		Assert.assertEquals(370.0, totalFare, 0);
 	}
 }
